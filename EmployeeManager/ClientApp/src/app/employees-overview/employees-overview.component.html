@@ -1,0 +1,39 @@
+<p-table [value]="employees" [tableStyle]="{'min-width': '60rem'}">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between p-5">
+            <p-button label="Add a new employee"></p-button>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th><span class="pl-5">Name</span></th>
+            <th>Photo</th>
+            <th>Category</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>City</th>
+            <th>Active</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-employee>
+        <tr>
+            <td><span class="pl-5"><strong>{{employee.name}}</strong></span></td>
+            <td><img src="../../assets/profile1.jpg" [alt]="employee.name" class="avatar" /></td>
+            <td><p-tag [value]="employee.category" severity="danger"></p-tag></td>
+            <td>{{employee.phone}}</td>
+            <td>{{employee.email}}</td>
+            <td><img src="https://flagicons.lipis.dev/flags/4x3/cz.svg" width="15" class="mr-1">{{employee.city}}</td>
+            <td><i class="pi pi-check-circle pl-3" style="font-size: 1.5rem; color: rgb(0, 184, 0)"></i></td>
+            <td>
+                <p-button icon="pi pi-pencil" [rounded]="true" [text]="true"></p-button>
+                <p-button icon="pi pi-trash" [rounded]="true" [text]="true"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between pl-5">
+            In total there are {{employees ? employees.length : 0 }} employees. 
+        </div>
+    </ng-template>
+</p-table>

@@ -1,0 +1,38 @@
+:host {
+    min-height: 17rem;
+    display: block;
+}
+
+.header-img {
+    height: 550px !important;
+    width: auto;
+    background-image: linear-gradient( to right top, rgb(255 255 255 / 63%), rgba(47, 119, 195, 0.73)), url('../assets/office.jpg');
+    clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%);
+    background-position: center;
+    object-fit: contain;
+    
+}
+
+.header-wrapper {
+    max-width: 1600px;
+    margin: 0 auto;
+    margin-top: 25px;
+    -webkit-box-shadow: -2px -1px 139px 0px rgba(0,0,0,0.33);
+    -moz-box-shadow: -2px -1px 139px 0px rgba(0,0,0,0.33);
+    box-shadow: -2px -1px 139px 0px rgba(0,0,0,0.33);
+
+}
+
+a.p-button {
+    text-decoration: none;
+}
+
+.content-wrapper {
+    max-width: 1600px;
+    margin: 0 auto;
+    margin-top: 45px;
+    -webkit-box-shadow: 0px 88px 167px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 88px 167px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 88px 167px 0px rgba(0,0,0,0.2);
+
+}
