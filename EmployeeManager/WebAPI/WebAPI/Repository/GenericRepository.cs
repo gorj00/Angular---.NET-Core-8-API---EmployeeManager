@@ -85,5 +85,39 @@ namespace WebAPI.Repository
             _db.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
         }
+
+            public async Task<List<T>> GetPage(
+        int pageNumber,
+        int pageSize,
+        Expression<Func<T, bool>>? expression = null,
+        Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+        List<string>? includes = null)
+    {
+        IQueryable<T> query = _context.Set<T>();
+
+        if (expression != null)
+        {
+            query = query.Where(expression);
+        }
+
+        if (includes != null)
+        {
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
+
+        if (orderBy != null)
+        {
+            query = orderBy(query);
+        }
+
+        // Calculate the number of items to skip based on the page number and page size
+        int itemsToSkip = (pageNumber - 1) * pageSize;
+
+        // Apply pagination and return the page of results
+        return await query.Skip(itemsToSkip).Take(pageSize).AsNoTracking().ToListAsync();
+    }
     }
 }

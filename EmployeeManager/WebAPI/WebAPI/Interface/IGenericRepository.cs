@@ -17,6 +17,13 @@ namespace WebAPI.Interface
         void DeleteRange(IEnumerable<T> entities);
         // Some repositories don't allow update
         void Update(T entity);
+        Task<List<T>> GetPage(
+            int pageNumber, 
+            int pageSize, 
+            Expression<Func<T, bool>>? expression = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+            List<string>? includes = null
+        );
 
     }
 }
