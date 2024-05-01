@@ -12,11 +12,12 @@ import { StepReviewComponent } from './step-review/step-review.component';
 import { StepperModule } from 'primeng/stepper';
 import { CardModule } from 'primeng/card';
 import { FormBuilder, ReactiveFormsModule, Validators, FormGroup, FormControl } from '@angular/forms';
-import { Observable, Subject, Subscription, exhaustMap, withLatestFrom } from 'rxjs';
-import { INewEmployeeForm } from '../../models/employee.model';
+import { Observable, Subject, Subscription, exhaustMap, withLatestFrom, map, catchError, of, EMPTY } from 'rxjs';
+import { IEmployeeResponse, INewEmployeeForm } from '../../models/employee.model';
 import { IGender } from '../../models/identity.model';
 import { MessageService } from 'primeng/api';
 import { EmployeeManagerService } from '../services/employee-manager.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-employee',
@@ -47,12 +48,12 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
     { name: 'Development', id: 2},
     { name: 'HR', id: 3}
   ]
-
+/*
   employees = [
     { id: 1, name: 'John Doe', category: 'Finance'},
     { id: 2, name: 'Jane Doe', category: 'Development'},
     { id: 3, name: 'Tim Doe', category: 'HR'}
-  ]
+  ]*/
 
   items?: {label: string, routerLink: string}[]
   countries?: { id: number, name: string}[]
@@ -89,11 +90,13 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
 
   formValue: INewEmployeeForm = {}
   formValueSub$: Subscription = new Subscription();
+  employees: IEmployeeResponse[] = []
 
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
-    private employeeManagerService: EmployeeManagerService) {}
+    private employeeManagerService: EmployeeManagerService,
+    private router: Router) {}
 
   onChangeStep(toStep: number) {
     // Non-existing steps
@@ -146,30 +149,46 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
       }
     ];
 
+    // TODO: mocked
+    this.countries = [
+      { id: 1, name: 'Česká republika'},
+      { id: 2, name: 'Slovensko'}
+    ]
 
-      // TODO: mocked
-      this.countries = [
-        { id: 1, name: 'Česká republika'},
-        { id: 2, name: 'Slovensko'}
-      ]
-
-      // TODO: mocked
-      this.cities = [
-        { id: 1, name: 'Praha'},
-        { id: 2, name: 'Brno'},
-        { id: 3, name: 'Bratislava'}
-      ]
+    // TODO: mocked
+    this.cities = [
+      { id: 1, name: 'Praha'},
+      { id: 2, name: 'Brno'},
+      { id: 3, name: 'Bratislava'}
+    ]
 
     this.formValueSub$.add(this.addEmployeeForm.valueChanges.subscribe(val => {this.formValue = val; console.log(val)}));
 
     this.saveActionSubscription.add(this.saveBtnClick$.pipe(
-      exhaustMap(() => this.employeeManagerService.createEmployee(this.employeeManagerService.mapFormToRequest(this.formValue)))
+      exhaustMap(() => this.employeeManagerService.createEmployee(this.employeeManagerService.mapFormToRequest(this.formValue)).pipe(
+        map(() => this.onSaveSuccess()),
+        catchError(() => { this.onSaveFailure(); return EMPTY; })
+      ))
     ).subscribe());
+
+
+    // TODO: memory leak
+    this.employeeManagerService.getEmployees().subscribe(e => this.employees = e);
   }
 
   ngOnDestroy(): void {
     this.formValueSub$.unsubscribe();
     this.saveActionSubscription.unsubscribe();
+  }
+
+  onSaveSuccess() {
+    this.messageService.add({ severity: 'success', summary: 'Employee created', detail: 'Employee successfully created! You will be redirected to employees overview...' })
+
+    setTimeout(() => this.router.navigate(['/']), 3500);
+  }
+
+  onSaveFailure() {
+    this.messageService.add({ severity: 'danger', summary: 'Employee not create', detail: 'Employee not created successfully due to an error!' })
   }
 
 

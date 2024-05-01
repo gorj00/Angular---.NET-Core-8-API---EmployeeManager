@@ -250,3 +250,4 @@ C:\Workspace\Mountfield\EmployeeManager\WebAPI\WebAPI\obj\Release\net8.0\refint\
 C:\Workspace\Mountfield\EmployeeManager\WebAPI\WebAPI\obj\Release\net8.0\WebAPI.pdb
 C:\Workspace\Mountfield\EmployeeManager\WebAPI\WebAPI\obj\Release\net8.0\WebAPI.genruntimeconfig.cache
 C:\Workspace\Mountfield\EmployeeManager\WebAPI\WebAPI\obj\Release\net8.0\ref\WebAPI.dll
+C:\Workspace\Mountfield\EmployeeManager\WebAPI\WebAPI\obj\Release\net8.0\WebAPI.sourcelink.json

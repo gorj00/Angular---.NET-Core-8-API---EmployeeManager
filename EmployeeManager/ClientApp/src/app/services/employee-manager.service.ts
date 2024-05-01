@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { IEmployeeCreateRequest } from '../../models/employee.model';
-import { Observable } from 'rxjs';
+import { IEmployeeCreateRequest, IEmployeeResponse } from '../../models/employee.model';
+import { Observable, shareReplay } from 'rxjs';
 import { environment } from '../../environments/environment'
 import { INewEmployeeForm, IAddressCreateDto } from '../../models/employee.model'
 @Injectable({providedIn: 'root'})
@@ -11,6 +11,10 @@ export class EmployeeManagerService {
 
     createEmployee(employeeReq: IEmployeeCreateRequest): Observable<any> {
         return this.httpService.Post(environment.apiUrl + 'Employees', employeeReq);
+    }
+
+    getEmployees(): Observable<IEmployeeResponse[]> {
+        return this.httpService.Get(environment.apiUrl + 'Employees');
     }
 
     mapFormToRequest(form: INewEmployeeForm): IEmployeeCreateRequest {

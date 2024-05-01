@@ -18,10 +18,10 @@
     </ng-template>
     <ng-template pTemplate="body" let-employee>
         <tr>
-            <td><span class="pl-5"><strong>{{employee.name}}</strong></span></td>
+            <td><span class="pl-5"><strong>{{employee.firstName}} {{employee.lastName}}</strong></span></td>
             <td><img src="../../assets/profile1.jpg" [alt]="employee.name" class="avatar" /></td>
             <td><p-tag [value]="employee.category" severity="danger"></p-tag></td>
-            <td>{{employee.phone}}</td>
+            <td>{{employee.phoneNumber}}</td>
             <td>{{employee.email}}</td>
             <td><img src="https://flagicons.lipis.dev/flags/4x3/cz.svg" width="15" class="mr-1">{{employee.city}}</td>
             <td><i class="pi pi-check-circle pl-3" style="font-size: 1.5rem; color: rgb(0, 184, 0)"></i></td>
@@ -33,7 +33,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
         <div class="flex align-items-center justify-content-between pl-5">
-            In total there are {{employees ? employees.length : 0 }} employees. 
+            In total there are {{employees ? employees.length : 0 }} employees.
         </div>
     </ng-template>
 </p-table>

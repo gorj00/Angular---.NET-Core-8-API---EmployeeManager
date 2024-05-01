@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { EmployeeManagerService } from '../services/employee-manager.service';
+import { IEmployeeResponse } from '../../models/employee.model';
 
 @Component({
   selector: 'app-employees-overview',
@@ -12,25 +14,18 @@ import { RouterLink } from '@angular/router';
   templateUrl: './employees-overview.component.html',
   styleUrl: './employees-overview.component.scss'
 })
-export class EmployeesOverviewComponent {
+export class EmployeesOverviewComponent implements OnInit {
 
-  employees: any = [
-  {
-    name: 'Jon Smith',
-    category: 'Finance',
-    phone: '+420 777 884 589',
-    email: 'iamjohn@domain.com',
-    city: 'Prague',
-    active: true
-  },
-  {
-    name: 'Jon Smith',
-    category: 'Finance',
-    phone: '+420 777 884 589',
-    email: 'iamjohn@domain.com',
-    city: 'Prague',
-    active: true
+  constructor(private employeeManagerService: EmployeeManagerService) {
+
   }
-]
+
+  ngOnInit(): void {
+    this.employeeManagerService.getEmployees().subscribe(e => this.employees = e)
+  }
+
+
+  employees: IEmployeeResponse[] = []
+
 
 }

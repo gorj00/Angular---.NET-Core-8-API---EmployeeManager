@@ -239,3 +239,4 @@ C:\Workspace\Mountfield\EmployeeManager\WebAPI\WebAPI\obj\Release\net8.0\linux-x
 C:\Workspace\Mountfield\EmployeeManager\WebAPI\WebAPI\obj\Release\net8.0\linux-x64\WebAPI.pdb
 C:\Workspace\Mountfield\EmployeeManager\WebAPI\WebAPI\obj\Release\net8.0\linux-x64\WebAPI.genruntimeconfig.cache
 C:\Workspace\Mountfield\EmployeeManager\WebAPI\WebAPI\obj\Release\net8.0\linux-x64\ref\WebAPI.dll
+C:\Workspace\Mountfield\EmployeeManager\WebAPI\WebAPI\obj\Release\net8.0\linux-x64\WebAPI.sourcelink.json

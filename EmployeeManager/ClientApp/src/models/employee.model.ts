@@ -42,3 +42,42 @@ export interface IAddressCreateDto {
   countryId: number | null | undefined;
 }
 
+export interface IEmployeeResponse {
+  id: number;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  birthDate: string;
+  gender: number;
+  address: Address;
+  addressId: number;
+  country: Country;
+  countryId: number;
+  email: string;
+  phoneNumber: string;
+  joinedDate: string;
+  exitedDay: string;
+  superior: string;
+  superiorId: number;
+}
+interface Address {
+  id: number;
+  street: string;
+  zipCode: string;
+  city: City;
+  cityId: number;
+  country: Country;
+  countryId: number;
+  isActive: boolean;
+}
+interface City {
+  id: number;
+  name: string;
+  country: Country;
+  countryId: number;
+}
+interface Country {
+  id: number;
+  name: string;
+}
+

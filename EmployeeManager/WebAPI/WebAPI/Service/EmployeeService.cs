@@ -4,6 +4,7 @@ using WebAPI.Model;
 
 namespace WebAPI.Service
 {
+    // TODO: refactor with automapper
     public class EmployeeService : IEmployeeService
     {
         public EmployeeService() {}

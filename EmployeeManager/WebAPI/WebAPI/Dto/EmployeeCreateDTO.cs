@@ -10,8 +10,7 @@ namespace WebAPI.Dto
         [StringLength(250, MinimumLength = 1)]
         public string FirstName { get; set; }
 
-        [StringLength(250, MinimumLength = 1)]
-        public string MiddleName { get; set; }
+        public string? MiddleName { get; set; }
 
         [Required]
         [StringLength(250, MinimumLength = 1)]
