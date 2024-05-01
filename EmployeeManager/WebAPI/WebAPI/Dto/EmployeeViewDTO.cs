@@ -53,7 +53,16 @@ namespace WebAPI.Dto
         public Employee? Superior { get; set; }
         public int? SuperiorId { get; set; }
 
-        public List<Salary> Salaries = [];
-        public List<Employee> Subordinates = [];
+        [Required]
+        public List<Salary> Salaries { get; set; } = [];
+
+        public List<Employee> Subordinates { get; set; } = [];
+
+        [Required]
+        public JobCategory JobCategory { get; set; }
+
+        [Required]
+        public int JobCategoryId { get; set; }
+
     }
 }

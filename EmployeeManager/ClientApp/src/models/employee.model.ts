@@ -42,41 +42,62 @@ export interface IAddressCreateDto {
   countryId: number | null | undefined;
 }
 
-export interface IEmployeeResponse {
+export interface IEmployee {
   id: number;
   firstName: string;
   middleName: string;
   lastName: string;
   birthDate: string;
   gender: number;
-  address: Address;
+  address: IAddress;
   addressId: number;
-  country: Country;
+  country: ICountry;
   countryId: number;
   email: string;
   phoneNumber: string;
   joinedDate: string;
   exitedDay: string;
-  superior: string;
+  superior: IEmployee;
   superiorId: number;
+  salaries: ISalary[];
+  subordinates: IEmployee[];
+  jobCategory: IJobCategory;
+  jobCategoryId: number;
 }
-interface Address {
+
+interface IAddress {
   id: number;
   street: string;
   zipCode: string;
-  city: City;
+  city: ICity;
   cityId: number;
-  country: Country;
+  country: ICountry;
   countryId: number;
   isActive: boolean;
 }
-interface City {
+
+interface ISalary {
+  id: number;
+  amount: number;
+  from: string;
+  to: string;
+  employee: IEmployee;
+  employeeId: number;
+}
+
+export interface IJobCategory {
+  id: number;
+  title: string;
+}
+
+export interface ICity {
   id: number;
   name: string;
-  country: Country;
+  country: ICountry;
   countryId: number;
 }
-interface Country {
+
+export interface ICountry {
   id: number;
   name: string;
 }

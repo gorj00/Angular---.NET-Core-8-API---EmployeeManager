@@ -7,7 +7,7 @@ import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { DropdownModule } from 'primeng/dropdown';
 import { ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { IEmployeeResponse } from '../../../models/employee.model';
+import { IEmployee, IJobCategory } from '../../../models/employee.model';
 
 @Component({
   selector: 'app-step-corporate',
@@ -20,8 +20,8 @@ export class StepCorporateComponent {
 
   @Input() corporateForm?: FormGroup
   @Input() attemptedLeaveOnInvalid?: boolean
-  @Input() employees?: IEmployeeResponse[]
-  @Input() categories?: { id: number; name: string; }[]
+  @Input() employees?: IEmployee[]
+  @Input() categories?: IJobCategory[]
 
   inputErrMsg = ' is missing or invalid'
 

@@ -10,6 +10,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { IGender } from '../../../models/identity.model';
+import { ICity, ICountry } from '../../../models/employee.model';
 
 @Component({
   selector: 'app-step-personal',
@@ -26,8 +27,8 @@ export class StepPersonalComponent implements OnInit {
   @Input() identityForm?: FormGroup
   @Input() addressForm?: FormGroup
   @Input() attemptedLeaveOnInvalid?: boolean;
-  @Input() cities?: { id: number, name: string}[];
-  @Input() countries?: { id: number, name: string}[];
+  @Input() cities?: ICity[];
+  @Input() countries?: ICountry[];
   @Input() genders?: { genderId: IGender, label: string }[];
 
   filteredCities?: any;
@@ -42,7 +43,7 @@ export class StepPersonalComponent implements OnInit {
 
   }
   personalInformation: any
-  
+
   // Invalid error message shown if: 1) There was an attempt to go to next step and control is invalid  2) COntrol is dirty and invalid
   isIdentityControlValid(controlName: string) {
     return (this.attemptedLeaveOnInvalid || this.identityForm?.controls[controlName]?.dirty) && !this.identityForm?.controls[controlName]?.valid;

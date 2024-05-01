@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IEmployeeResponse, INewEmployeeForm } from '../../../models/employee.model'
+import { ICity, ICountry, IEmployee, IJobCategory, INewEmployeeForm } from '../../../models/employee.model'
 import { IGender } from '../../../models/identity.model';
 
 @Component({
@@ -15,11 +15,11 @@ import { IGender } from '../../../models/identity.model';
 export class StepReviewComponent {
 
   @Input() formValue?: INewEmployeeForm
-  @Input() cities?: { id: number; name: string; }[];
-  @Input() countries?: { id: number; name: string; }[];
+  @Input() cities?: ICity[];
+  @Input() countries?: ICountry[];
   @Input() genders?: { genderId: IGender; label: string; }[];
-  @Input() employees?: IEmployeeResponse[]
-  @Input() categories?: { id: number; name: string; }[]
+  @Input() employees?: IEmployee[]
+  @Input() categories?: IJobCategory[]
 
   getCityById(id: number | undefined): string {
     if (id)
@@ -41,7 +41,7 @@ export class StepReviewComponent {
 
   getCategoryById(id: number | null | undefined): string {
     if (id)
-      return this.categories?.find(c => c.id === id)?.name || ''
+      return this.categories?.find(c => c.id === id)?.title || ''
     else return '';
   }
 
@@ -49,7 +49,7 @@ export class StepReviewComponent {
     if (!id)
       return '';
 
-    const employee: IEmployeeResponse | undefined = this.employees?.find(c => c.id === id)
+    const employee: IEmployee | undefined = this.employees?.find(c => c.id === id)
 
     if (employee)
       return employee.firstName + ' ' + employee.lastName;

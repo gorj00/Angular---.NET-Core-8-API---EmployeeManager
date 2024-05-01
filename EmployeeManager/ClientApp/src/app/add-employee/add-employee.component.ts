@@ -11,9 +11,9 @@ import { StepCorporateComponent } from './step-corporate/step-corporate.componen
 import { StepReviewComponent } from './step-review/step-review.component';
 import { StepperModule } from 'primeng/stepper';
 import { CardModule } from 'primeng/card';
-import { FormBuilder, ReactiveFormsModule, Validators, FormGroup, FormControl } from '@angular/forms';
-import { Observable, Subject, Subscription, exhaustMap, withLatestFrom, map, catchError, of, EMPTY } from 'rxjs';
-import { IEmployeeResponse, INewEmployeeForm } from '../../models/employee.model';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Observable, Subject, Subscription, exhaustMap, withLatestFrom, map, catchError, EMPTY } from 'rxjs';
+import { ICity, ICountry, IEmployee, IJobCategory, INewEmployeeForm } from '../../models/employee.model';
 import { IGender } from '../../models/identity.model';
 import { MessageService } from 'primeng/api';
 import { EmployeeManagerService } from '../services/employee-manager.service';
@@ -42,22 +42,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
     { genderId: IGender.UNSPECIFIED, label: 'Unspecified' },
   ]
 
-  // TODO: mocked
-  categories = [
-    { name: 'Finance', id: 1},
-    { name: 'Development', id: 2},
-    { name: 'HR', id: 3}
-  ]
-/*
-  employees = [
-    { id: 1, name: 'John Doe', category: 'Finance'},
-    { id: 2, name: 'Jane Doe', category: 'Development'},
-    { id: 3, name: 'Tim Doe', category: 'HR'}
-  ]*/
-
   items?: {label: string, routerLink: string}[]
-  countries?: { id: number, name: string}[]
-  cities?: { id: number, name: string}[]
   activeStep = 0;
   nextStepAttempted: any = {
     identity: false,
@@ -88,15 +73,18 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
     })
   });
 
-  formValue: INewEmployeeForm = {}
-  formValueSub$: Subscription = new Subscription();
-  employees: IEmployeeResponse[] = []
-
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
     private employeeManagerService: EmployeeManagerService,
     private router: Router) {}
+
+  formValue: INewEmployeeForm = {}
+  formValueSub$: Subscription = new Subscription();
+  employees: IEmployee[] = this.employeeManagerService.employees;
+  countries: ICountry[] = this.employeeManagerService.countries;
+  cities: ICity[] = this.employeeManagerService.cities;
+  categories: IJobCategory[] = this.employeeManagerService.jobCategories;
 
   onChangeStep(toStep: number) {
     // Non-existing steps
@@ -132,6 +120,9 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
     }
   }
 
+  getCategoryById(id: number): string {
+      return this.categories?.find(c => c.id === id)?.title || ''
+  }
 
   ngOnInit(): void {
     this.items = [
@@ -149,19 +140,6 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
       }
     ];
 
-    // TODO: mocked
-    this.countries = [
-      { id: 1, name: 'Česká republika'},
-      { id: 2, name: 'Slovensko'}
-    ]
-
-    // TODO: mocked
-    this.cities = [
-      { id: 1, name: 'Praha'},
-      { id: 2, name: 'Brno'},
-      { id: 3, name: 'Bratislava'}
-    ]
-
     this.formValueSub$.add(this.addEmployeeForm.valueChanges.subscribe(val => {this.formValue = val; console.log(val)}));
 
     this.saveActionSubscription.add(this.saveBtnClick$.pipe(
@@ -171,9 +149,6 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
       ))
     ).subscribe());
 
-
-    // TODO: memory leak
-    this.employeeManagerService.getEmployees().subscribe(e => this.employees = e);
   }
 
   ngOnDestroy(): void {
@@ -182,9 +157,9 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
   }
 
   onSaveSuccess() {
-    this.messageService.add({ severity: 'success', summary: 'Employee created', detail: 'Employee successfully created! You will be redirected to employees overview...' })
+    this.messageService.add({ severity: 'success', summary: 'Employee created', detail: 'Employee successfully created! You will be redirected to new form' })
 
-    setTimeout(() => this.router.navigate(['/']), 3500);
+    setTimeout(() => {/*this.router.navigate(['/']); */window.location.reload()}, 3500);
   }
 
   onSaveFailure() {

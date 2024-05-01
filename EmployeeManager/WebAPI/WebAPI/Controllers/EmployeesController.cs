@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,9 +32,25 @@ namespace WebAPI.Controllers
 
         // GET: api/Employees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployee()
+        public async Task<ActionResult<IEnumerable<EmployeeViewDTO>>> GetEmployee()
         {
-            return await _context.Employee.ToListAsync();
+            List<Employee> employees =  await _unitOfWork.employees.GetAll(null, null, new List<string> { "Address", "Superior", "Country" });
+            List<EmployeeViewDTO> employeeViews = new List<EmployeeViewDTO>();
+
+            foreach (Employee employee in employees)
+            {
+                var city = await _unitOfWork.cities.Get(q => q.Id == employee.Address.CityId);
+                var jobCategory_Employee = await _unitOfWork.jobCategoriesEmployees.Get(q => q.EmployeeId == employee.Id, new List<string> { "JobCategory" });
+                var salaries = await _unitOfWork.salaries.GetAll(q => q.EmployeeId == employee.Id);
+                var subordinates = await _unitOfWork.employees.GetAll(q => q.SuperiorId == employee.Id);
+
+                EmployeeViewDTO employeeViewDTO = _employeeService.mapToViewDTO(employee, jobCategory_Employee, salaries, subordinates, city);
+
+                employeeViews.Add(employeeViewDTO);
+
+            }
+            return employeeViews;
+
         }
 
         // GET: api/Employees/5
@@ -112,14 +129,30 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
-            var employee = await _context.Employee.FindAsync(id);
+            var employee = await _unitOfWork.employees.Get(q => q.Id == id);
             if (employee == null)
             {
                 return NotFound();
             }
 
-            _context.Employee.Remove(employee);
-            await _context.SaveChangesAsync();
+            var salaries = await _unitOfWork.salaries.GetAll(q => q.EmployeeId == employee.Id);
+            var jobCategoriesEmployees = await _unitOfWork.jobCategoriesEmployees.GetAll(q => q.EmployeeId == employee.Id);
+            _unitOfWork.salaries.DeleteRange(salaries);
+            _unitOfWork.jobCategoriesEmployees.DeleteRange(jobCategoriesEmployees);
+            await _unitOfWork.addresses.Delete(employee.AddressId);
+
+            var subordinates = await _unitOfWork.employees.GetAll(q => q.SuperiorId == employee.Id);
+
+            // If stated as superior in other employees, nullify this reference
+            foreach (var sub in subordinates)
+            {
+                sub.SuperiorId = null;
+                _unitOfWork.employees.Update(sub);
+            }
+
+            await _unitOfWork.employees.Delete(employee.Id);
+
+            await _unitOfWork.Save();
 
             return NoContent();
         }

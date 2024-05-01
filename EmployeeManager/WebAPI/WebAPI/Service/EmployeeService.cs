@@ -66,5 +66,35 @@ namespace WebAPI.Service
             };
         }
 
+        public EmployeeViewDTO mapToViewDTO(Employee employee, JobCategory_Employee jobCategory_Employee, 
+            List<Salary> salaries, List<Employee> subordinates, City city)
+        {
+            employee.Address.City = city;
+
+            return new EmployeeViewDTO()
+            {
+                FirstName = employee.FirstName,
+                MiddleName = employee.MiddleName,
+                LastName = employee.LastName,
+                Address = employee.Address,
+                AddressId = employee.AddressId,
+                Gender = employee.Gender,
+                BirthDate = employee.BirthDate,
+                Country = employee.Country,
+                CountryId = employee.CountryId,
+                Email = employee.Email,
+                JoinedDate = employee.JoinedDate,
+                ExitedDay = employee.ExitedDay,
+                PhoneNumber = employee.PhoneNumber,
+                Superior = employee.Superior,
+                SuperiorId = employee.SuperiorId,
+                Id = employee.Id,
+                JobCategory = jobCategory_Employee.JobCategory,
+                JobCategoryId = jobCategory_Employee.JobCategoryId,
+                Salaries = salaries,
+                Subordinates = subordinates
+            };
+        }
+
     }
 }
