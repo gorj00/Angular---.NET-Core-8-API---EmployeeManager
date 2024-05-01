@@ -1,0 +1,47 @@
+<div class="grid" *ngIf="corporateForm">
+    <div class="col-12" [formGroup]="corporateForm">
+        <p-card>
+            <ng-template pTemplate="title"> Corporate </ng-template>
+            <ng-template pTemplate="subtitle"> Enter the new employee's category, salary, and optionally superior </ng-template>
+            <ng-template pTemplate="content">
+                <div class="p-fluid">
+                    <div class="grid">
+
+                        <div class="col-4">
+                            <div class="field">
+                                <label for="jobCategoryId">Category *</label>
+                                <p-dropdown id="jobCategoryId" formControlName="jobCategoryId" [options]="categories" optionValue="id" optionLabel="name"
+                                    [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}" placeholder="Select category"></p-dropdown>
+                                <small *ngIf="isCorporateControlValid('jobCategoryId')" class="p-error">{{'Category' + inputErrMsg}}</small>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="field">
+                                <label for="salary">Salary *</label>
+                                <p-inputNumber  id="salary" required formControlName="salary" [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}" inputId="currency-us" mode="currency" currency="USD" locale="en-US"> </p-inputNumber>
+                                <small *ngIf="isCorporateControlValid('salary')" class="p-error">{{'Salary' + inputErrMsg}}</small>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="field">
+                                <label for="superiorId">Superior</label>
+                                <p-dropdown [options]="employees" formControlName="superiorId" optionLabel="name" optionValue="id" [showClear]="true" placeholder="Select a superior (optional)">
+                                    <ng-template let-employee pTemplate="item">
+                                        <div class="flex align-items-center gap-2 justify-content-between">
+                                            <div>{{ employee.name }}</div>
+                                            <p-tag severity="success" [value]="employee.category | uppercase"></p-tag>
+                                        </div>
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+
+</div>

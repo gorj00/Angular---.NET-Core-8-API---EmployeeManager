@@ -1,1 +1,55 @@
-<p>add-employee works!</p>
+<div class="grid p-6">
+    <div class="col-12">
+        <p-stepper [activeStep]="activeStep">
+            <ng-container [formGroup]="addEmployeeForm">
+
+                <p-stepperPanel header="Personal information">
+                    <ng-template pTemplate="content" let-index="index">
+                        <app-step-personal 
+                            [identityForm]="addEmployeeForm.controls.identity"
+                            [addressForm]="addEmployeeForm.controls.address"
+                            [attemptedLeaveOnInvalid]="activeStep === index && flagAttemptedStepLeaveOnInvalid"
+                            [cities]="cities"
+                            [countries]="countries"
+                            [genders]="genders"
+                        ></app-step-personal>
+                        <div class="flex pt-4 justify-content-end">
+                            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="onChangeStep(index + 1)" class="edged-overlay" />
+                        </div>
+                    </ng-template>
+                </p-stepperPanel>
+                
+                <p-stepperPanel header="Corporate information" formGroupName="corporate">
+                    <ng-template pTemplate="content" let-index="index">
+                        <app-step-corporate 
+                            [corporateForm]="addEmployeeForm.controls.corporate"
+                            [attemptedLeaveOnInvalid]="activeStep === index && flagAttemptedStepLeaveOnInvalid"
+                            [categories]="categories"
+                            [employees]="employees"
+                        ></app-step-corporate>
+                        <div class="flex pt-4 justify-content-between">
+                            <p-button label="Back" icon="pi pi-arrow-left" (onClick)="onChangeStep(index - 1)" />
+                            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="onChangeStep(index + 1)" /></div
+                    ></ng-template>
+                </p-stepperPanel>
+                <p-stepperPanel header="Review information">
+                    <ng-template pTemplate="content" let-index="index">
+                        <app-step-review
+                            [formValue]="formValue"
+                            [cities]="cities"
+                            [countries]="countries"
+                            [genders]="genders"
+                            [categories]="categories"
+                            [employees]="employees"
+                        ></app-step-review>
+                        <div class="flex pt-4 justify-content-between">
+                            <p-button label="Back" icon="pi pi-arrow-left" (onClick)="onChangeStep(index - 1)" />
+                            <p-button label="Save" severity="success" /></div
+                    ></ng-template>
+                </p-stepperPanel>
+            </ng-container>
+        </p-stepper>
+
+
+    </div>
+</div>

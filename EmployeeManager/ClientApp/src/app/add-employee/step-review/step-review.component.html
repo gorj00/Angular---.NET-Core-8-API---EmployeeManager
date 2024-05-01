@@ -1,0 +1,29 @@
+
+<div class="grid" *ngIf="formValue">
+    <div class="col-12">
+        <p-card>
+            <div class="grid">
+                <div class="col-6 px-5">
+                    <h2>Identity and contact</h2>
+                    <ul class="list-disc">
+                        <li><strong>Gender:</strong> {{ getGenderById(formValue.identity?.genderId) }}</li>
+                        <li><strong>Name:</strong> {{ formValue.identity?.firstName }} {{ formValue.identity?.middleName }} {{ formValue.identity?.lastName }}</li>
+                        <li><strong>Birth date:</strong> {{ formValue.identity?.birthDate | date: 'MMMM d, y' }}</li>
+                        <li><strong>Address:</strong> {{ formValue.address?.street }}, {{ formValue.address?.zipCode }} {{ getCityById(formValue.address?.city?.id) }}, {{getCountryById(formValue.address?.countryId)  }}</li>
+                        <li><strong>Contact info:</strong> {{ formValue.identity?.phone }}, {{ formValue.identity?.email }}</li>
+                    </ul>
+                </div>
+
+                <div class="col-6">
+                    <h2>Corporate</h2>
+                    <ul class="list-disc">
+                        <li><strong>Category:</strong> {{ getCategoryById(formValue.corporate?.jobCategoryId) }}</li>
+                        <li><strong>Salary:</strong> {{ formValue.corporate?.salary | currency: 'USD'  }}</li>
+                        <li *ngIf="formValue.corporate?.superiorId"><strong>Superior:</strong> {{ getEmployeeById(formValue.corporate?.superiorId) }}</li>
+                    </ul>
+                </div>
+            </div>
+
+        </p-card>
+    </div>
+</div>

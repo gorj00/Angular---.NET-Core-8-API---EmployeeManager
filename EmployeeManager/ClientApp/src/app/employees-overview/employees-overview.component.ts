@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-employees-overview',
   standalone: true,
-  imports: [ButtonModule, TableModule, TagModule],
+  imports: [CommonModule, ButtonModule, TableModule, TagModule, RouterLink],
   templateUrl: './employees-overview.component.html',
   styleUrl: './employees-overview.component.scss'
 })

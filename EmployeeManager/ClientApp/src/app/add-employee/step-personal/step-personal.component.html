@@ -1,0 +1,97 @@
+<div class="grid" *ngIf="identityForm && addressForm">
+    <div class="col-6" [formGroup]="identityForm">
+        <p-card>
+            <ng-template pTemplate="title"> Identity and contact </ng-template>
+            <ng-template pTemplate="subtitle"> Enter the new employee's personal information </ng-template>
+            <ng-template pTemplate="content">
+                <div class="p-fluid">
+
+                    <div class="field">
+                        <label for="gender">Gender *</label>
+                        <p-dropdown id="gender" formControlName="genderId" [options]="genders" optionValue="genderId" 
+                            [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}" placeholder="Select gender"></p-dropdown>
+                        <small *ngIf="isIdentityControlValid('genderId')" class="p-error">{{'Gender' + inputErrMsg}}</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="firstName">First name *</label>
+                        <input id="firstName" type="text" required pInputText formControlName="firstName" [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}" />
+                        <small *ngIf="isIdentityControlValid('firstName')" class="p-error">{{'First name' + inputErrMsg}}</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="middleName">Middle name</label>
+                        <input id="middleName" type="text" pInputText formControlName="middleName" />
+                    </div>
+
+                    <div class="field">
+                        <label for="lastName">Last name *</label>
+                        <input id="lastName" type="text" required pInputText formControlName="lastName" [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}" />
+                        <small class="p-error" *ngIf="isIdentityControlValid('lastName')">{{'Last name' + inputErrMsg}}</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="birthDate">Birth date *</label>
+                        <p-calendar id="birthDate" formControlName="birthDate" [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}"></p-calendar>
+                        <small class="p-error" *ngIf="isIdentityControlValid('birthDate')">{{'Birth day' + inputErrMsg}}</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email *</label>
+                        <input id="email" type="text" required pInputText [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}"
+                            formControlName="email" />
+                        <small class="p-error" *ngIf="isIdentityControlValid('email')">{{'Email' + inputErrMsg}}</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="phone">Phone *</label>
+                        <input id="phone" type="text" required pInputText [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}"
+                            formControlName="phone" />
+                        <small class="p-error" *ngIf="isIdentityControlValid('phone')">{{'Phone' + inputErrMsg}}</small>
+                    </div>
+                    
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+    
+    <div class="col-6" [formGroup]="addressForm">
+        <p-card>
+            <ng-template pTemplate="title"> Address </ng-template>
+            <ng-template pTemplate="subtitle"> Enter the new employee's address information </ng-template>
+            <ng-template pTemplate="content">
+                <div class="p-fluid">
+
+                    <div class="field">
+                        <label for="street">Street *</label>
+                        <input id="street" type="text" required pInputText formControlName="street" [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}" />
+                        <small *ngIf="isAddressControlValid('street')" class="p-error">{{'Street' + inputErrMsg}}</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="zipCode">Zip code *</label>
+                        <input id="zipCode" type="text" required pInputText formControlName="zipCode" [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}" />
+                        <small *ngIf="isAddressControlValid('zipCode')" class="p-error">Zip code is required with length of 5 characters</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="city">City *</label>
+                        <p-autoComplete formControlName="city" [suggestions]="filteredCities" (completeMethod)="filterCity($event)"
+                            dropdown="true" id="city" field="name" [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}"
+                            placeholder="Start typing and select"></p-autoComplete>
+                        <small *ngIf="isAddressControlValid('city')" class="p-error">City has to be selected</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="countryId">Country *</label>
+                        <p-dropdown id="countryId" formControlName="countryId" [options]="countries" optionValue="id" optionLabel="name"
+                            [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}"></p-dropdown>
+                        <small *ngIf="isAddressControlValid('countryId')" class="p-error">Country has to be selected</small>
+                    </div>
+
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+
+</div>

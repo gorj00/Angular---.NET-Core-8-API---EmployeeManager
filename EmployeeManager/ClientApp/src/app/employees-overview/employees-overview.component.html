@@ -1,7 +1,7 @@
 <p-table [value]="employees" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between p-5">
-            <p-button label="Add a new employee"></p-button>
+            <p-button label="Add a new employee" class="edged-overlay" [routerLink]="['/add']"></p-button>
         </div>
     </ng-template>
     <ng-template pTemplate="header">

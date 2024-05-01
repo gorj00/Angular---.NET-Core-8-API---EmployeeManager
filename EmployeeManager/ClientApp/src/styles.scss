@@ -8,3 +8,43 @@
 body {
     margin: 0 auto;
 }
+
+
+// Not working from isolated scope, applying globally then
+#city > div {
+    input {
+        border-right: none;
+    }
+
+    
+    chevrondownicon {
+        color: #6b7280
+    }
+
+    button.p-button {
+        background-color: transparent !important;
+        border-color: #d1d5db;
+        border-left: none;
+    }
+}
+
+.edged-overlay .p-button::before,
+.p-button.edged-overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%; /* Adjust as needed */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.152), transparent); /* Overlay gradient */
+  transition: all 0.3s ease;
+  margin-left: 70%;
+  margin-right: -10px;
+  z-index: 1;
+  height: 80%;
+}
+
+.edged-overlay .p-button::before,
+.p-button.edged-overlay::before {
+  left: 0;
+  transform: skewX(-10deg); /* Angle of the hard edge */
+}
