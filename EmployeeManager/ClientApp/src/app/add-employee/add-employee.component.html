@@ -44,12 +44,12 @@
                         ></app-step-review>
                         <div class="flex pt-4 justify-content-between">
                             <p-button label="Back" icon="pi pi-arrow-left" (onClick)="onChangeStep(index - 1)" />
-                            <p-button label="Save" severity="success" /></div
+                            <p-button label="Save" severity="success" (onClick)="onSave()" /></div
                     ></ng-template>
                 </p-stepperPanel>
             </ng-container>
         </p-stepper>
-
+        <p-toast></p-toast>
 
     </div>
 </div>

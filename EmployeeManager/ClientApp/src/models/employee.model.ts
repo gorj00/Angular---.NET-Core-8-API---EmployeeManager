@@ -22,23 +22,23 @@ export type INewEmployeeForm = Partial<{
 }> | null;
 
 export interface IEmployeeCreateRequest {
-  firstName: string;
-  middleName?: string;
-  lastName: string;
-  birthDate: string;
-  gender: number;
-  addressCreateDTO: AddressCreateDto;
-  email: string;
-  phoneNumber: string;
-  superiorId?: number;
-  salary: number;
-  jobCategoryId: number;
+  firstName: string | null | undefined;
+  middleName?: string | null | undefined;
+  lastName: string | null | undefined;
+  birthDate: string | null | undefined;
+  gender: number | null | undefined;
+  addressCreateDTO: IAddressCreateDto;
+  email: string | null | undefined;
+  phoneNumber: string | null | undefined;
+  superiorId?: number | null | undefined;
+  salary: number | null | undefined;
+  jobCategoryId: number | null | undefined;
 }
 
-export interface AddressCreateDto {
-  street: string;
-  zipCode: string;
-  cityId: number;
-  countryId: number;
+export interface IAddressCreateDto {
+  street: string | null | undefined;
+  zipCode: string| null | undefined;
+  cityId: number | undefined;
+  countryId: number | null | undefined;
 }
 
