@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/home/grx00/Workspace/Angular---.NET-Core-8-API---EmployeeManager/EmployeeManager/WebAPI/WebAPI/WebAPI.csproj": {}
+    "C:\\Workspace\\Mountfield\\EmployeeManager\\WebAPI\\WebAPI\\WebAPI.csproj": {}
   },
   "projects": {
-    "/home/grx00/Workspace/Angular---.NET-Core-8-API---EmployeeManager/EmployeeManager/WebAPI/WebAPI/WebAPI.csproj": {
+    "C:\\Workspace\\Mountfield\\EmployeeManager\\WebAPI\\WebAPI\\WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/grx00/Workspace/Angular---.NET-Core-8-API---EmployeeManager/EmployeeManager/WebAPI/WebAPI/WebAPI.csproj",
+        "projectUniqueName": "C:\\Workspace\\Mountfield\\EmployeeManager\\WebAPI\\WebAPI\\WebAPI.csproj",
         "projectName": "WebAPI",
-        "projectPath": "/home/grx00/Workspace/Angular---.NET-Core-8-API---EmployeeManager/EmployeeManager/WebAPI/WebAPI/WebAPI.csproj",
-        "packagesPath": "/home/grx00/.nuget/packages/",
-        "outputPath": "/home/grx00/Workspace/Angular---.NET-Core-8-API---EmployeeManager/EmployeeManager/WebAPI/WebAPI/obj/",
+        "projectPath": "C:\\Workspace\\Mountfield\\EmployeeManager\\WebAPI\\WebAPI\\WebAPI.csproj",
+        "packagesPath": "C:\\Users\\Honza Gorol\\.nuget\\packages\\",
+        "outputPath": "C:\\Workspace\\Mountfield\\EmployeeManager\\WebAPI\\WebAPI\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/home/grx00/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Honza Gorol\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -81,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/241/sdk/8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -15,7 +15,7 @@ namespace WebAPI.Model
         public string FirstName { get; set; }
 
         [StringLength(250, MinimumLength = 1)]
-        public string MiddleName { get; set; }
+        public string? MiddleName { get; set; }
 
         [Required]
         [StringLength(250, MinimumLength = 1)]
@@ -52,10 +52,10 @@ namespace WebAPI.Model
         [Required]
         public DateTime JoinedDate { get; set; }
 
-        public DateTime ExitedDay { get; set; } // optional, NULL means currently active Employee
+        public DateTime? ExitedDay { get; set; } // optional, NULL means currently active Employee
 
-        public Employee Superior { get; set; }
-        public int SuperiorId { get; set; }
+        public Employee? Superior { get; set; }
+        public int? SuperiorId { get; set; }
 
     }
 }

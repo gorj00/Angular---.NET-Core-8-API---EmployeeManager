@@ -8,7 +8,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { CommonModule } from '@angular/common';
 import { StepPersonalComponent } from './step-personal/step-personal.component';
 import { StepCorporateComponent } from './step-corporate/step-corporate.component';
-import { StepReviewComponent } from './step-review/step-review.component'; 
+import { StepReviewComponent } from './step-review/step-review.component';
 import { StepperModule } from 'primeng/stepper';
 import { CardModule } from 'primeng/card';
 import { FormBuilder, ReactiveFormsModule, Validators, FormGroup, FormControl } from '@angular/forms';
@@ -65,8 +65,8 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
       middleName: [''],
       lastName: ['', Validators.required],
       birthDate: [null, Validators.required],
-      email: ['', [Validators.required, Validators.email, Validators.minLength(3)]],
-      phone: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(250)]],
+      phone: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]],
     }),
     address: this.fb.group({
       street: ['', Validators.required],
@@ -83,7 +83,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
 
   formValue?: INewEmployeeForm
   formValueSub$: Subscription = new Subscription();
-  
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -108,7 +108,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
         { id: 1, name: 'Česká republika'},
         { id: 2, name: 'Slovensko'}
       ]
-  
+
       // TODO: mocked
       this.cities = [
         { id: 1, name: 'Praha'},
@@ -150,6 +150,6 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
   }
 
 
-  
+
 
 }

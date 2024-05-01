@@ -15,7 +15,7 @@ namespace WebAPI.Model
         [Required]
         public DateTime From { get; set; }
 
-        public DateTime To { get; set; } // optional, salary currently still active
+        public DateTime? To { get; set; } // optional, salary currently still active
 
         [Required]
         public Employee Employee { get; set; }

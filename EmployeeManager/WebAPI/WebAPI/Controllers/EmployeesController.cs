@@ -6,7 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
+using WebAPI.Dto;
+using WebAPI.Interface;
 using WebAPI.Model;
+using WebAPI.Service;
 
 namespace WebAPI.Controllers
 {
@@ -15,10 +18,15 @@ namespace WebAPI.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly WebAPIContext _context;
+        private readonly IEmployeeService _employeeService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public EmployeesController(WebAPIContext context)
+
+        public EmployeesController(WebAPIContext context, IEmployeeService employeeService, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _employeeService = employeeService;
+            _unitOfWork = unitOfWork;
         }
 
         // GET: api/Employees
@@ -74,12 +82,28 @@ namespace WebAPI.Controllers
         }
 
         // POST: api/Employees
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
+        public async Task<IActionResult> CreateHotel([FromBody] EmployeeCreateDTO employeeDTO)
         {
-            _context.Employee.Add(employee);
-            await _context.SaveChangesAsync();
+            AddressCreateDTO addressCreateDTO = employeeDTO.AddressCreateDTO;
+
+            var verifiedCountry = await _unitOfWork.countries.Get(q => q.Id == addressCreateDTO.CountryId);
+            var verifiedCity = await _unitOfWork.cities.Get(q => q.Id == addressCreateDTO.CityId);
+            var verifiedSuperior = await _unitOfWork.employees.Get(q => q.Id == employeeDTO.SuperiorId);
+            var verifiedJobCategory = await _unitOfWork.jobCategories.Get(q => q.Id == employeeDTO.JobCategoryId);
+
+            Employee employee = _employeeService.mapCreateDto(employeeDTO, verifiedCountry, verifiedCity, verifiedSuperior, verifiedJobCategory);
+            Salary salary = _employeeService.mapToSalary(employeeDTO.Salary, employee);
+            JobCategory_Employee jobCategory_Employee = _employeeService.mapToJobCategory_Employee(verifiedJobCategory, employee);
+
+            await _unitOfWork.employees.Insert(employee);
+            await _unitOfWork.salaries.Insert(salary);
+            await _unitOfWork.jobCategoriesEmployees.Insert(jobCategory_Employee);
+            
+            if (verifiedSuperior != null) {
+                employee.Superior = verifiedSuperior;
+            }
+            await _unitOfWork.Save();
 
             return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);
         }
