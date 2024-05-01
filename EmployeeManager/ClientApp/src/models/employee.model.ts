@@ -21,3 +21,24 @@ export type INewEmployeeForm = Partial<{
     }>;
 }> | null;
 
+export interface IEmployeeCreateRequest {
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  birthDate: string;
+  gender: number;
+  addressCreateDTO: AddressCreateDto;
+  email: string;
+  phoneNumber: string;
+  superiorId?: number;
+  salary: number;
+  jobCategoryId: number;
+}
+
+export interface AddressCreateDto {
+  street: string;
+  zipCode: string;
+  cityId: number;
+  countryId: number;
+}
+
