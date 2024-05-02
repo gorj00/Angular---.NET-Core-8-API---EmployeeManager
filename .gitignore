@@ -1,3 +1,4 @@
 /docker-backend
 .vs/
 EmployeeManager/WebAPI/WebAPI/bin
+EmployeeManager/WebAPI/WebAPI/obj
