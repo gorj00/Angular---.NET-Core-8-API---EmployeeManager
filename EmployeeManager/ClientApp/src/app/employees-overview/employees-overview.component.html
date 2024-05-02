@@ -6,6 +6,7 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
+            <th style="width: 5rem"></th>
             <th><span class="pl-5">Name</span></th>
             <th>Photo</th>
             <th>Category</th>
@@ -16,8 +17,11 @@
             <th></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-employee>
+    <ng-template pTemplate="body" let-employee let-expanded="expanded">
         <tr>
+            <td>
+                <button type="button" pButton pRipple [pRowToggler]="employee" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+            </td>
             <td><span class="pl-5"><strong>{{employee.firstName}} {{employee.lastName}}</strong></span></td>
             <td><img src="../../assets/profile1.jpg" class="avatar"/></td>
             <td><p-tag [value]="employee.jobCategory.title" severity="danger"></p-tag></td>

@@ -53,7 +53,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
   addEmployeeForm = this.fb.group({
     identity: this.fb.group({
       genderId: [null, Validators.required],
-      firstName: ['Jan', Validators.required],
+      firstName: ['', Validators.required],
       middleName: [''],
       lastName: ['', Validators.required],
       birthDate: [null, Validators.required],
@@ -157,7 +157,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
   }
 
   onSaveSuccess() {
-    this.messageService.add({ severity: 'success', summary: 'Employee created', detail: 'Employee successfully created! You will be redirected to new form' })
+    this.messageService.add({ severity: 'success', summary: 'Employee created', detail: 'Employee successfully created! You will be redirected to the overview' })
 
     setTimeout(() => {this.router.navigate(['/'])}, 3000);
   }

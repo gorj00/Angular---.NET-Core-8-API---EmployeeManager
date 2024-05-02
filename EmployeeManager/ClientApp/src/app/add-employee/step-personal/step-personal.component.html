@@ -8,7 +8,7 @@
 
                     <div class="field">
                         <label for="gender">Gender *</label>
-                        <p-dropdown id="gender" formControlName="genderId" [options]="genders" optionValue="genderId" 
+                        <p-dropdown id="gender" formControlName="genderId" [options]="genders" optionValue="genderId"
                             [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}" placeholder="Select gender"></p-dropdown>
                         <small *ngIf="isIdentityControlValid('genderId')" class="p-error">{{'Gender' + inputErrMsg}}</small>
                     </div>
@@ -49,12 +49,12 @@
                             formControlName="phone" />
                         <small class="p-error" *ngIf="isIdentityControlValid('phone')">{{'Phone' + inputErrMsg}}</small>
                     </div>
-                    
+
                 </div>
             </ng-template>
         </p-card>
     </div>
-    
+
     <div class="col-6" [formGroup]="addressForm">
         <p-card>
             <ng-template pTemplate="title"> Address </ng-template>
@@ -78,7 +78,7 @@
                         <label for="city">City *</label>
                         <p-autoComplete formControlName="city" [suggestions]="filteredCities" (completeMethod)="filterCity($event)"
                             dropdown="true" id="city" field="name" [ngClass]="{'ng-dirty': attemptedLeaveOnInvalid}"
-                            placeholder="Start typing and select"></p-autoComplete>
+                            placeholder="Start typing and/or select"></p-autoComplete>
                         <small *ngIf="isAddressControlValid('city')" class="p-error">City has to be selected</small>
                     </div>
 

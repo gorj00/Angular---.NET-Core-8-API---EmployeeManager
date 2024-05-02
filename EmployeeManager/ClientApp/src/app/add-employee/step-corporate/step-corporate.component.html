@@ -27,11 +27,16 @@
                         <div class="col-4">
                             <div class="field">
                                 <label for="superiorId">Superior</label>
-                                <p-dropdown [options]="employees" formControlName="superiorId" optionLabel="name" optionValue="id" [showClear]="true" placeholder="Select a superior (optional)">
+                                <p-dropdown [options]="employees" formControlName="superiorId" optionValue="id" [showClear]="true" placeholder="Select a superior (optional)">
+                                    <ng-template let-employee pTemplate="selectedItem">
+                                        <div class="flex align-items-center gap-2 justify-content-between">
+                                            <div>{{ employee.firstName }} {{ employee.lastName }}</div>
+                                        </div>
+                                  </ng-template>
                                     <ng-template let-employee pTemplate="item">
                                         <div class="flex align-items-center gap-2 justify-content-between">
                                             <div>{{ employee.firstName }} {{ employee.lastName }}</div>
-                                            <!--<p-tag severity="success" [value]="employee.category | uppercase"></p-tag>-->
+                                            <p-tag severity="success" [value]="employee.jobCategory.title | uppercase"></p-tag>
                                         </div>
                                     </ng-template>
                                 </p-dropdown>

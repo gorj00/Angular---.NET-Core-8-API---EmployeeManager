@@ -34,7 +34,7 @@ export class StepReviewComponent {
   }
 
   getGenderById(id: number| null | undefined): string {
-    if (id)
+    if (id != undefined && id !== null)
       return this.genders?.find(c => c.genderId === id)?.label || ''
     else return '';
   }

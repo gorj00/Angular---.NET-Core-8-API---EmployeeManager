@@ -9,18 +9,20 @@ builder.Services.AddDbContext<WebAPIContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("WebAPIContext") ?? throw new InvalidOperationException("Connection string 'WebAPIContext' not found.")));
 
 // Add services to the container.
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder
+        .WithOrigins("http://localhost", "http://localhost:4200", "https://cvwebapi.azure-api.net", "https://ashy-grass-05653e71e-preview.westus2.5.azurestaticapps.net")
+        .WithMethods("GET", "PUT", "POST", "DELETE", "OPTIONS")
+        .AllowAnyHeader()
+        .AllowCredentials()
+    );
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddCors(o => {
-    o.AddPolicy("AllowAll", builder =>
-        builder.AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader());
-});
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
@@ -34,9 +36,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");
+app.UseRouting();
 
 app.UseAuthorization();
 
