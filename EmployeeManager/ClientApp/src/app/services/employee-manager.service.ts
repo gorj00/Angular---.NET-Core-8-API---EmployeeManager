@@ -12,7 +12,7 @@ export class EmployeeManagerService {
   jobCategories: IJobCategory[] = []
   countries: ICountry[] = []
   cities: ICity[] = []
-  employeesLoading = true;
+  // employeesLoading = true;
 
   constructor(private httpService: HttpService) {}
 

@@ -159,7 +159,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
   onSaveSuccess() {
     this.messageService.add({ severity: 'success', summary: 'Employee created', detail: 'Employee successfully created! You will be redirected to new form' })
 
-    setTimeout(() => {/*this.router.navigate(['/']); */window.location.reload()}, 3500);
+    setTimeout(() => {this.router.navigate(['/'])}, 3000);
   }
 
   onSaveFailure() {

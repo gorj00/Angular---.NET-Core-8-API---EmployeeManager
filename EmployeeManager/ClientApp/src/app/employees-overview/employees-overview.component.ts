@@ -32,9 +32,10 @@ export class EmployeesOverviewComponent implements OnInit {
   onDelete(id: number) {
     this.employeeManagerService.deleteEmployee(id).pipe(take(1)).subscribe(() => {
           this.messageService.add({ severity: 'success', summary: 'Employee deleted', detail: 'Employee successfully deleted! ' })
+          this.employeesLoading = true;
           this.employeeManagerService.getEmployees().pipe(take(1)).subscribe(
-            // TODO: Refetching issue - Did not work with updating service's employees directly, possibly will have to switch to observable instead of service property, temp workaround:
-            () => window.location.reload())
+            employees =>{ this.employees = employees; this.employeesLoading = false;}
+          )
     })
   }
 
@@ -59,8 +60,10 @@ export class EmployeesOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.employeesLoading = this.employeeManagerService.employeesLoading;
-    this.employees = this.employeeManagerService.employees
+    this.employeeManagerService.getEmployees().subscribe(employees => {
+      this.employees = employees;
+      this.employeesLoading = false;
+    })
   }
 
 

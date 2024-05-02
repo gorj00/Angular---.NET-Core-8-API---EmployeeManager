@@ -19,8 +19,9 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private employeeManagerService: EmployeeManagerService) {}
 
   ngOnInit(): void {
+
     // Employees
-    this.subs.add(this.employeeManagerService.getEmployees().subscribe(employees => {this.employeeManagerService.employees = employees; this.employeeManagerService.employeesLoading = false;}));
+    this.subs.add(this.employeeManagerService.getEmployees().subscribe(employees => this.employeeManagerService.employees = employees));
 
     // JobCategories
     this.subs.add(this.employeeManagerService.getJobCategories().subscribe(cats => this.employeeManagerService.jobCategories = cats));
