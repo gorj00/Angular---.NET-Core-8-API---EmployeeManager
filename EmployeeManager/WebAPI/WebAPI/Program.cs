@@ -11,23 +11,27 @@ builder.Services.AddDbContext<WebAPIContext>(options =>
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy",
-        builder => builder
-        .WithOrigins("http://localhost", "http://localhost:4200", "https://cvwebapi.azure-api.net", "https://ashy-grass-05653e71e-preview.westus2.5.azurestaticapps.net")
-        .WithMethods("GET", "PUT", "POST", "DELETE", "OPTIONS")
-        .AllowAnyHeader()
-        .AllowCredentials()
-    );
+    options.AddPolicy("AllowAll", builder =>
+            builder.WithOrigins("http://localhost", "http://localhost:4200", "https://ashy-grass-05653e71e-preview.westus2.5.azurestaticapps.net")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+
 });
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 var app = builder.Build();
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -36,11 +40,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("CorsPolicy");
-
-app.UseHttpsRedirection();
-
-app.UseRouting();
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 

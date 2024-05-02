@@ -100,7 +100,7 @@ namespace WebAPI.Controllers
 
         // POST: api/Employees
         [HttpPost]
-        public async Task<IActionResult> CreateHotel([FromBody] EmployeeCreateDTO employeeDTO)
+        public async Task<IActionResult> CreateEmployee([FromBody] EmployeeCreateDTO employeeDTO)
         {
             AddressCreateDTO addressCreateDTO = employeeDTO.AddressCreateDTO;
 
