@@ -14,7 +14,7 @@ import { CardModule } from 'primeng/card';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable, Subject, Subscription, exhaustMap, withLatestFrom, map, catchError, EMPTY } from 'rxjs';
 import { ICity, ICountry, IEmployee, IJobCategory, INewEmployeeForm } from '../../models/employee.model';
-import { IGender } from '../../models/identity.model';
+import { EGender, IGender } from '../../models/identity.model';
 import { MessageService } from 'primeng/api';
 import { EmployeeManagerService } from '../services/employee-manager.service';
 import { Router } from '@angular/router';
@@ -36,10 +36,10 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
   saveBtnClick$: Observable<void> = this.saveBtnClickSubject.asObservable();
   saveActionSubscription: Subscription = new Subscription();
 
-  genders: { genderId: IGender, label: string }[] = [
-    { genderId: IGender.MALE, label: 'Male' },
-    { genderId: IGender.FEMALE, label: 'Female' },
-    { genderId: IGender.UNSPECIFIED, label: 'Unspecified' },
+  genders: IGender[] = [
+    { genderId: EGender.MALE, label: 'Male' },
+    { genderId: EGender.FEMALE, label: 'Female' },
+    { genderId: EGender.UNSPECIFIED, label: 'Unspecified' },
   ]
 
   items?: {label: string, routerLink: string}[]

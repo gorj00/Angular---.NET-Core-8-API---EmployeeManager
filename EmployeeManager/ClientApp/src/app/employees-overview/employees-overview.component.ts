@@ -9,11 +9,12 @@ import { IEmployee } from '../../models/employee.model';
 import { take } from 'rxjs';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { EmployeeDetailComponent } from './employee-detail/employee-detail.component'
 
 @Component({
   selector: 'app-employees-overview',
   standalone: true,
-  imports: [CommonModule, ButtonModule, TableModule, TagModule, RouterLink, ConfirmPopupModule],
+  imports: [CommonModule, ButtonModule, TableModule, TagModule, RouterLink, ConfirmPopupModule, EmployeeDetailComponent],
   templateUrl: './employees-overview.component.html',
   styleUrl: './employees-overview.component.scss',
   providers: [MessageService, ConfirmationService]
@@ -28,6 +29,7 @@ export class EmployeesOverviewComponent implements OnInit {
 
   employeesLoading: boolean = true;
   employees: IEmployee[] = []
+  expandedEmployeesIds: Set<number> = new Set();
 
   onDelete(id: number) {
     this.employeeManagerService.deleteEmployee(id).pipe(take(1)).subscribe(() => {
@@ -66,6 +68,23 @@ export class EmployeesOverviewComponent implements OnInit {
     })
   }
 
+  onExpand(employeeId: number) {
+    if (this.expandedEmployeesIds.has(employeeId)) {
+      this.expandedEmployeesIds.delete(employeeId);
+    } else {
+      this.expandedEmployeesIds.add(employeeId);
+    }
+    // console.log(this.expandedEmployeesIds)
+  }
+
+  getCategoryColor(categoryId: number): string {
+    switch(categoryId) {
+      case 1: return 'warning';
+      case 3: return 'danger';
+      case 4: return 'info';
+      default: return 'success';
+    }
+  }
 
 
 }

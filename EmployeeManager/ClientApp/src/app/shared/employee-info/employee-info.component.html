@@ -1,0 +1,16 @@
+<div *ngIf="employee" class="grid px-4">
+    <div class="col-6">
+        <app-icon-text-field [icon]="'pi-user'" [label]="'Full name'" [value]="getFullName()"></app-icon-text-field>
+        <app-icon-text-field [icon]="getGenderIcon()" [label]="'Gender'" [value]="getGenderById(employee.gender)"></app-icon-text-field>
+        <app-icon-text-field [icon]="'pi-calendar'" [label]="'Birth day'" [value]="employee.birthDate | date: 'MMMM d, y'"></app-icon-text-field>
+        <app-icon-text-field *ngIf="showAddress" [icon]="'pi-home'" [label]="'Address'" [value]="employee.address.street + ', ' + employee.address.city.name + ', ' + employee.address.zipCode + ', ' + employee.country.name"></app-icon-text-field>
+        <app-icon-text-field [icon]="'pi-phone'" [label]="'Phone number'" [value]="employee.phoneNumber"></app-icon-text-field>
+        <app-icon-text-field [icon]="'pi-at'" [label]="'Email'" [value]="employee.email"></app-icon-text-field>
+    </div>
+
+    <div class="col-6">
+        <app-icon-text-field [icon]="'pi-user-plus'" [label]="'Joined date'" [value]="employee.joinedDate | date: 'MMMM d, y'"></app-icon-text-field>
+        <app-icon-text-field [icon]="'pi-user-minus'" [label]="'Exited date'" [value]="employee.exitedDay ? (employee.exitedDay | date: 'MMMM d, y') : '--'"></app-icon-text-field>
+    </div>
+
+</div>

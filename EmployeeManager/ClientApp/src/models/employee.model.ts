@@ -76,7 +76,7 @@ interface IAddress {
   isActive: boolean;
 }
 
-interface ISalary {
+export interface ISalary {
   id: number;
   amount: number;
   from: string;

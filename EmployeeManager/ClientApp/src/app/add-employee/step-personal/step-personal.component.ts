@@ -29,7 +29,7 @@ export class StepPersonalComponent implements OnInit {
   @Input() attemptedLeaveOnInvalid?: boolean;
   @Input() cities?: ICity[];
   @Input() countries?: ICountry[];
-  @Input() genders?: { genderId: IGender, label: string }[];
+  @Input() genders?: IGender[];
 
   filteredCities?: any;
   inputErrMsg = ' is missing or invalid'

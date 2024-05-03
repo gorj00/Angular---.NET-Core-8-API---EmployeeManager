@@ -1,0 +1,5 @@
+<div *ngIf="salary" class="px-4">
+    <app-icon-text-field [icon]="'pi-calendar'" [label]="'From'" [value]="salary.from | date: 'MMMM d, y'"></app-icon-text-field>
+    <app-icon-text-field [icon]="'pi-calendar'" [label]="'To'" [value]="salary.to ? (salary.to | date: 'MMMM d, y') : '--'"></app-icon-text-field>
+    <app-icon-text-field [icon]="'pi-dollar'" [label]="'Amount'" [value]="salary.amount | currency: 'USD'"></app-icon-text-field>
+</div>

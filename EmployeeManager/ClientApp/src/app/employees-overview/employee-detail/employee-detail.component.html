@@ -1,0 +1,20 @@
+<p-accordion [activeIndex]="0">
+    <p-accordionTab header="Full information">
+        <app-employee-info [employee]="employee"></app-employee-info>
+    </p-accordionTab>
+    <p-accordionTab header="Salaries" *ngIf="employee?.salaries?.length">
+        <div *ngFor="let salary of employee?.salaries; index as i">
+            <p-divider *ngIf="i > 0"></p-divider>
+            <app-salary-info [salary]="salary"></app-salary-info>
+        </div>
+    </p-accordionTab>
+    <p-accordionTab header="Superior" *ngIf="employee?.superior">
+        <app-employee-info [employee]="employee?.superior" [showAddress]="false"></app-employee-info>
+    </p-accordionTab>
+    <p-accordionTab header="Subordinates" *ngIf="employee?.subordinates?.length">
+        <div *ngFor="let subordinate of employee?.subordinates; index as i">
+            <p-divider *ngIf="i > 0"></p-divider>
+            <app-employee-info [employee]="subordinate" [showAddress]="false"></app-employee-info>
+        </div>
+    </p-accordionTab>
+</p-accordion>

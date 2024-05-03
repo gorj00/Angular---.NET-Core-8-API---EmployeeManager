@@ -48,3 +48,16 @@ body {
   left: 0;
   transform: skewX(-10deg); /* Angle of the hard edge */
 }
+
+.employees-overview tr.blur-unexpanded {
+    background-color: #6b728038;
+
+    td:not(:first-child) {
+        filter: blur(2px);
+        z-index: 10;
+    }
+}
+
+.non-blur {
+    filter: blur(0);
+}

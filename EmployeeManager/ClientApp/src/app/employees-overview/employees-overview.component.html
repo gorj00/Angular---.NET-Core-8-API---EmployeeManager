@@ -1,4 +1,4 @@
-<p-table [value]="employees" [tableStyle]="{'min-width': '60rem'}" [loading]="employeesLoading">
+<p-table [value]="employees" [tableStyle]="{'min-width': '60rem'}" [loading]="employeesLoading" dataKey="id" class="employees-overview">
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between p-5">
             <p-button label="Add a new employee" class="edged-overlay" [routerLink]="['/add']"></p-button>
@@ -18,27 +18,38 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-employee let-expanded="expanded">
-        <tr>
-            <td>
-                <button type="button" pButton pRipple [pRowToggler]="employee" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+        <tr [ngClass]="{'blur-unexpanded': expandedEmployeesIds.size && !expandedEmployeesIds.has(employee.id)}">
+            <td class="non-blur">
+                <button type="button" pButton pRipple [pRowToggler]="employee" class="p-button-text p-button-rounded p-button-plain non-blur" 
+                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" (click)="onExpand(employee.id)"></button>
             </td>
             <td><span class="pl-5"><strong>{{employee.firstName}} {{employee.lastName}}</strong></span></td>
-            <td><img src="../../assets/profile1.jpg" class="avatar"/></td>
-            <td><p-tag [value]="employee.jobCategory.title" severity="danger"></p-tag></td>
+            <td><img [src]="employee.gender === 1 ? '../../assets/profile2.png' : '../../assets/profile1.jpg'" class="avatar"/></td>
+            <td><p-tag [value]="employee.jobCategory.title" [severity]="getCategoryColor(employee.jobCategoryId)"></p-tag></td>
             <td>{{employee.phoneNumber}}</td>
             <td>{{employee.email}}</td>
-            <td><img src="https://flagicons.lipis.dev/flags/4x3/cz.svg" width="15" class="mr-1">{{employee.address.city.name}}</td>
+            <td><img [src]="employee.countryId === 1 ? 'https://flagicons.lipis.dev/flags/4x3/cz.svg' : 'https://flagicons.lipis.dev/flags/4x3/sk.svg'" width="15" class="mr-1">{{employee.address.city.name}}</td>
             <td>
               <i *ngIf="!employee.exitedDay" class="pi pi-check-circle pl-3" style="font-size: 1.5rem; color: rgb(0, 184, 0)"></i>
               <i *ngIf="employee.exitedDay" class="pi pi-times-circle pl-3" style="font-size: 1.5rem; color: rgb(243, 0, 0)"></i>
             </td>
             <td>
+                <!--
                 <p-confirmPopup></p-confirmPopup>
                 <p-button icon="pi pi-pencil" [rounded]="true" [text]="true"
                 (onClick)="confirmEdit($event, employee.id)"></p-button>
-
+                -->
                 <p-confirmPopup></p-confirmPopup>
                 <p-button icon="pi pi-trash" [rounded]="true" [text]="true" (onClick)="confirmDelete($event, employee.id)"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-employee>
+        <tr>
+            <td colspan="9">
+                <app-employee-detail
+                    [employee]="employee"
+                ></app-employee-detail>
             </td>
         </tr>
     </ng-template>

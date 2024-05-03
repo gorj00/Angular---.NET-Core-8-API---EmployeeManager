@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { IJobCategory, IEmployeeCreateRequest, IEmployee, ICity, INewEmployeeForm, IAddressCreateDto, ICountry } from '../../models/employee.model';
 import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
 import { environment } from '../../environments/environment'
 
 @Injectable({providedIn: 'root'})

@@ -17,7 +17,7 @@ export class StepReviewComponent {
   @Input() formValue?: INewEmployeeForm
   @Input() cities?: ICity[];
   @Input() countries?: ICountry[];
-  @Input() genders?: { genderId: IGender; label: string; }[];
+  @Input() genders?: IGender[];
   @Input() employees?: IEmployee[]
   @Input() categories?: IJobCategory[]
 
@@ -35,7 +35,7 @@ export class StepReviewComponent {
 
   getGenderById(id: number| null | undefined): string {
     if (id != undefined && id !== null)
-      return this.genders?.find(c => c.genderId === id)?.label || ''
+      return this.genders?.find((c: IGender) => c.genderId === id)?.label || ''
     else return '';
   }
 
